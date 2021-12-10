@@ -1,1 +1,4 @@
 this txt will save important links to information online.
+
+utilman "bug" on school system:
+https://www.technibble.com/bypass-windows-logons-utilman/ 
