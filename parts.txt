@@ -1,1 +1,13 @@
 this txt will save information on the building parts used in this project.
+
+MicroController Unit: 
+-ESP 32 NodeMCU WROOM 32
+  .size: 55, 27, 12 [in mm]
+
+Inputs [per 1 controller]:
+-KY-023 Joystick
+-button
+
+Controller-build:
+-3d printer: Artillery Sidewinder-X1 (Clyptos will confirm)
+  .software: ultimaker cura
