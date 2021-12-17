@@ -1,8 +1,9 @@
 this txt will save information on the building parts used in this project.
 
 MicroController Unit: 
--ESP 32 NodeMCU WROOM 32
+-ESP 32 NodeMCU
   .size: 55, 27, 12 [in mm]
+  .microprocessor: WROOM 32
 
 Inputs [per 1 controller]:
 -KY-023 Joystick
