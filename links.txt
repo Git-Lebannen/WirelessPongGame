@@ -1,4 +1,7 @@
 this txt will save important links to information online.
 
 utilman "bug" on school system:
-https://www.technibble.com/bypass-windows-logons-utilman/ 
+- https://www.technibble.com/bypass-windows-logons-utilman/ 
+
+helpful web pages:
+- https://www.fambach.net/esp32-nodemcu/
