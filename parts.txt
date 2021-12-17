@@ -4,6 +4,7 @@ MicroController Unit:
 -ESP 32 NodeMCU
   .size: 55, 27, 12 [in mm]
   .microprocessor: WROOM 32
+    - https://www.guru99.com/difference-between-microprocessor-and-microcontroller.html
 
 Inputs [per 1 controller]:
 -KY-023 Joystick
