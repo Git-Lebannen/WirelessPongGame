@@ -1,1 +1,3 @@
-get programming environment to work with the board
+install board support
+get necessary hardware: cable
+test programming environment and board uploading
