@@ -1,4 +1,4 @@
-Clyptos & Lebannen
+Lebannen und Clyptos
 
 Projektbeschreibung „Wireless Arduino Pong Game“
 
