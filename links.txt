@@ -6,3 +6,4 @@ utilman "bug" on school system:
 helpful web pages:
 - https://www.fambach.net/esp32-nodemcu/
 - https://circuitdigest.com/microcontroller-projects/getting-started-with-esp32-with-arduino-ide
+- https://www.instructables.com/How-to-Program-NodeMCU-on-Arduino-IDE/ //install board package
