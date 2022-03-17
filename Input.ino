@@ -21,26 +21,26 @@ void loop()
        
    // up
    case 0x46:
-    gVv += 1
-    serial.print(gVv)
+    gVv = 1
+    serial.write(gVv)
     break;
        
    // down
    case 0x15:
-    gvV -= 1
-    serial.print(gVv)
+    gvV = -1
+    serial.write(gVv)
     break;
        
    // left
    case 0x44:
-    gVh -= 1
-    serial.print(gVh)
+    gVh = -1
+    serial.write(gVh)
     break;
        
    // right
    case 0x43:
     gVh += 1
-    serial.print(gVh)
+    serial.write(gVh)
     break;
    }
   }
