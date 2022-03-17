@@ -39,7 +39,7 @@ void loop()
        
    // right
    case 0x43:
-    gVh += 1
+    gVh = 1
     serial.write(gVh)
     break;
    }
