@@ -1,3 +1,0 @@
-install board support
-get necessary hardware: cable
-test programming environment and board uploading
