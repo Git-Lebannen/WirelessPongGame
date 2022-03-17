@@ -8,3 +8,4 @@ helpful web pages:
 - https://circuitdigest.com/microcontroller-projects/getting-started-with-esp32-with-arduino-ide
 - https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/ //install board package
 - https://polluxlabs.net/arduino-tutorials/so-verwendest-du-bluetooth-am-esp32/#:~:text=Unter%20dem%20Men%C3%BCpunkt%20Devices%2FBluetooth,und%20im%20Seriellen%20Monitor%20ausgegeben. //bluetooth esp32
+- http://www.righto.com/2009/08/multi-protocol-infrared-remote-library.html
