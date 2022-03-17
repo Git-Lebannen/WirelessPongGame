@@ -9,4 +9,4 @@ Die Controller werden über einen Knopf, der zum Spielstart, pausieren und Selek
 
 Code-Verständniss:
 
-.ino code läuft computer und hat eine bluetooth verbindung zu dem nodemcu.
+Input.ino code liest die übertragenen Informationen in den Serial port. Das C# programm nimmt die Informationen wieder aus dem Serial port raus und übersetzt sie in das Spiel. 
