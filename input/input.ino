@@ -5,27 +5,27 @@ int commands[5] = {0, 3, 0, 0, 0};
 
 void setup()
 {
-   Serial.begin(115200);
-   Serial.println("Beginn IR receiving.");
-   IrReceiver.begin(receiver, ENABLE_LED_FEEDBACK);
-   Serial.println("Press the buttons you want to use as controls on your remote in this order: up, down, left, right, enter.");
-   set();
-}
-
-void loop()
-{
+  Serial.begin(115200);
+  Serial.println("Beginn IR receiving.");
+  IrReceiver.begin(receiver, ENABLE_LED_FEEDBACK);
+  Serial.println("Press the buttons you want to use as controls on your remote in this order: up, down, left, right, enter.");
+  set();
   for (int i = 0; i == 5; i++)
   {
     Serial.println(commands[i]);
-  }  
-  read();
+  } 
 }
 
-void read()
+void loop()
+{ 
+  input();
+}
+
+void input()
 {
    if (IrReceiver.decode())
    {
-      Serial.println(IrReceiver.decodedIRData.command, HEX);
+      Serial.println(IrReceiver.decodedIRData.command);
       IrReceiver.resume();
    }
 }
@@ -34,9 +34,11 @@ void set()
 {
   for (int i = 0; i == 5; i++)
   {
-    commands[i] = IrReceiver.decodedIRData.command;
-    i ++;
-    Serial.println(i);
+    if (IrReceiver.decode())
+    {
+      commands[i] = IrReceiver.decodedIRData.command;
+      IrReceiver.resume();
+    }
   }
 }
 

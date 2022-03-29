@@ -1,15 +1,7 @@
 this txt will save information on the building parts used in this project.
 
 MicroController Unit: 
--ESP 32 NodeMCU
-  .size: 55, 27, 12 [in mm]
-  .microprocessor: WROOM 32
-    - https://www.guru99.com/difference-between-microprocessor-and-microcontroller.html
+- Arduino Uno
 
-Inputs [per 1 controller]:
--KY-023 Joystick
--button
-
-Controller-build:
--3d printer: Artillery Sidewinder-X1 (Clyptos will confirm)
-  .software: ultimaker cura
+IR receiver:
+- 2 x VS 1838B, pinning left to right: 5v, GND, pin
