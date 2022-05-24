@@ -1,6 +1,4 @@
-#include <IRremote.h>
-
-// to do: change set to read to an array that is copied to a constexpr, add LED
+// writes commands to the serial port corresponding to IR inputs chosen by two players using remotes
 
 /* 
    
@@ -15,8 +13,12 @@
 
 */
 
-// set pins and int arrays to store IR commands from the users
+#include <IRremote.h>
+
+// set pins 
 int receiver = 11;
+
+// initialize int arrays to hold set commands
 int commands1[5];
 int commands2[5];
 bool setStatus = false;
@@ -58,52 +60,52 @@ void input()
     {       
       // P1 up
       case commands1[0]:
-        serial.write("P1UP")
+        serial.write("P1UP");
         break;
 
       // P1 down
       case commands1[1]:
-        serial.write("P1DOWN")
+        serial.write("P1DOWN");
         break;
       
       // P1 left
       case commands1[2]:
-        serial.write("P1LEFT")
+        serial.write("P1LEFT");
         break;
 
       // P1 right
       case commands1[3]:
-        serial.write("P1RIGHT")
+        serial.write("P1RIGHT");
         break;
 
       // P1 enter
       case commands1[4]:
-        serial.write("P1ENTER")
+        serial.write("P1ENTER");
         break;
 
       // P2 up
       case commands2[0]:
-        serial.write("P2UP")
+        serial.write("P2UP");
         break;
 
       // P2 down
       case commands2[1]:
-        serial.write("P2DOWN")
+        serial.write("P2DOWN");
         break;
       
       // P2 left
       case commands2[2]:
-        serial.write("P2LEFT")
+        serial.write("P2LEFT");
         break;
 
       // P2 right
       case commands2[3]:
-        serial.write("P2RIGHT")
+        serial.write("P2RIGHT");
         break;
 
       // P2 enter
       case commands2[4]:
-        serial.write("P2ENTER")
+        serial.write("P2ENTER");
         break;
     }
   }
@@ -115,7 +117,8 @@ void set() {
   
   // get inputs from both users
   for (int i = 1; i < 3; i++) {
-    for (int j = 0; j < 5; j++) {
+    int j = 0;
+    while ( j < 5) {
     
       if (IrReceiver.decode()) {
         
@@ -130,7 +133,10 @@ void set() {
         commands[j] = command;
   
         IrReceiver.resume();
+
+        i++;
       }
+      
     }
   }
 
