@@ -11,3 +11,5 @@ helpful web pages:
 - http://www.righto.com/2009/08/multi-protocol-infrared-remote-library.html
 - https://forum.arduino.cc/t/parsing-serial-data-and-separating-it-into-variables/619949/2
 - https://www.youtube.com/watch?v=5ElKFY3N1zs
+
+- https://create.arduino.cc/projecthub/electropeak/use-an-ir-remote-transmitter-and-receiver-with-arduino-1e6bc8
