@@ -202,3 +202,55 @@ void loop()
   }
 }
 */
+
+
+// writes commands to the serial port corresponding to IR inputs chosen by two players using remotes
+
+/*
+
+  pinning for IR receiver:
+
+  facing front:
+  - left: 5V
+  - middle: GND
+  - right: 11
+
+  pinning for RGB LED
+
+*/
+
+
+#include <IRremote.h>
+
+// set pins
+const byte RECEIVER_PIN = 11;
+const byte LED_R_PIN = 3;
+const byte LED_G_PIN = 5;
+const byte LED_B_PIN = 6;
+
+// set IR command storage arrays
+int commands_P1[5];
+int commands_P2[5];
+
+
+void setup() {
+  // begin serial port and IR receiving
+  Serial.begin(115200);
+  IrReceiver.begin(RECEIVER_PIN);
+  Serial.println("IR receiving has begun.");
+
+  // set IR command storage arrays
+  commands_P1 = set(commands_P1);
+  commands_P2 = set(commands_P2);
+}
+
+
+void loop() {
+  // get input and print corresponding commands to serial port
+}
+
+
+int* set(int[] commands) {
+  // returns an array with values from IR remote
+  return commands;
+}
