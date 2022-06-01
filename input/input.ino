@@ -153,58 +153,11 @@ void set() {
 }
 
 
-/*
-# include <IRremote.h>
-int reader = 4;
-gVv = 0
-gVh = 0
-
-void setup()
-{
-  Serial.begin(9600);
-  
-  // setup IR receiver
-  IrReceiver.begin(reader);
-}
-
-void loop()
-{
-  // read inputs ()
-  if (IrReceiver.decode())
-  {
-   switch (IrReceiver.decodedIRData.command)
-   {
-       
-   // up
-   case 0x46:
-    gVv = 1
-    serial.write(gVv)
-    break;
-       
-   // down
-   case 0x15:
-    gvV = -1
-    serial.write(gVv)
-    break;
-       
-   // left
-   case 0x44:
-    gVh = -1
-    serial.write(gVh)
-    break;
-       
-   // right
-   case 0x43:
-    gVh = 1
-    serial.write(gVh)
-    break;
-   }
-  }
-}
-*/
-
+///////////////////////////////////////////////////////////////////////////////////////////// new code 
 
 // writes commands to the serial port corresponding to IR inputs chosen by two players using remotes
+
+#include <IRremote.h>
 
 /*
 
@@ -217,10 +170,13 @@ void loop()
 
   pinning for RGB LED
 
+  facing front(marker mark), left to right:
+  - 1: 3
+  - 2: 5
+  - 3: 6
+  - 4: GND
+
 */
-
-
-#include <IRremote.h>
 
 // set pins
 const byte RECEIVER_PIN = 11;
@@ -229,28 +185,158 @@ const byte LED_G_PIN = 5;
 const byte LED_B_PIN = 6;
 
 // set IR command storage arrays
-int commands_P1[5];
-int commands_P2[5];
+const byte NUM_INPUTS = 5;
+int commands_P1[NUM_INPUTS];
+int commands_P2[NUM_INPUTS];
 
 
 void setup() {
+  // set RGB_LED pins to outputs
+  pinMode(LED_R_PIN, OUTPUT);
+  pinMode(LED_G_PIN, OUTPUT); 
+  pinMode(LED_B_PIN, OUTPUT);
+  
   // begin serial port and IR receiving
   Serial.begin(115200);
   IrReceiver.begin(RECEIVER_PIN);
   Serial.println("IR receiving has begun.");
 
   // set IR command storage arrays
-  commands_P1 = set(commands_P1);
-  commands_P2 = set(commands_P2);
+  set(commands_P1, 1);
+  set(commands_P2, 2);
+  for (int i = 0; i < NUM_INPUTS; i++) {
+    Serial.print(commands_P1[i]);
+    Serial.print(commands_P2[i]);
+  }
 }
 
 
 void loop() {
   // get input and print corresponding commands to serial port
+  if (IrReceiver.decode()) {
+    switch (IrReceiver.decodedIRData.command)
+    {       
+      // P1 up
+      case commands_P1[0]:
+        serial.write("P1UP");
+        break;
+
+      // P1 down
+      case commands_P1[1]:
+        serial.write("P1DOWN");
+        break;
+      
+      // P1 left
+      case commands_P1[2]:
+        serial.write("P1LEFT");
+        break;
+
+      // P1 right
+      case commands_P1[3]:
+        serial.write("P1RIGHT");
+        break;
+
+      // P1 enter
+      case commands_P1[4]:
+        serial.write("P1ENTER");
+        break;
+
+      // P2 up
+      case commands_P2[0]:
+        serial.write("P2UP");
+        break;
+
+      // P2 down
+      case commands_P2[1]:
+        serial.write("P2DOWN");
+        break;
+      
+      // P2 left
+      case commands_P2[2]:
+        serial.write("P2LEFT");
+        break;
+
+      // P2 right
+      case commands_P2[3]:
+        serial.write("P2RIGHT");
+        break;
+
+      // P2 enter
+      case commands_P2[4]:
+        serial.write("P2ENTER");
+        break;
+    }
+  }
 }
 
 
-int* set(int[] commands) {
+void set(int commands[], int p) {
   // returns an array with values from IR remote
-  return commands;
+
+  if (p == 1) {
+    Serial.println("Player One:");
+  } else {
+    Serial.println("Player Two:");
+  }
+
+  Serial.println("Press the buttons you want to use as controls on your remote in this order: up, down, left, right, enter.");
+  
+  int i = 0;
+  while (i < NUM_INPUTS) {
+    if (IrReceiver.decode()) {
+
+        int command = IrReceiver.decodedIRData.command;
+        if (i > 0 && commands[i-1] == command) {
+          i--;
+        }  
+        commands[i] = command;
+        
+        i++;  
+        IrReceiver.resume();
+    }
+  }
 }
+
+
+void RGB_protocol(int type) {
+  switch (type) {
+    
+    // receiving new values
+    case 1:
+      while (true) {
+        if (IrReceiver.decode()) {
+          analogWrite(LED_B_PIN, 255);
+          delay(5);
+          analogWrite(LED_B_PIN, 0);
+        }
+      }
+            
+    // getting input
+    case 2:
+      while (true) {
+        if (IrReceiver.decode()) {
+          analogWrite(LED_G_PIN, 255);
+          delay(5);
+          analogWrite(LED_G_PIN, 0);
+        }
+      }
+      
+    // error
+    case 3:
+      while (true) {
+        if (IrReceiver.decode()) {
+          analogWrite(LED_R_PIN, 255);
+          delay(10);
+          analogWrite(LED_R_PIN, 0);
+        }
+      }
+
+    // clear RGB protocol
+    case 4: 
+      analogWrite(LED_R_PIN, 0);
+      analogWrite(LED_G_PIN, 0);
+      analogWrite(LED_B_PIN, 0);
+      break;
+  }
+}
+
