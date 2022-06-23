@@ -15,15 +15,14 @@
   - 4: GND
 */
 
-// set pins
+// set pins and variables
 const byte RECEIVER_PIN = 11;
 const byte LED_R_PIN = 3;
 const byte LED_G_PIN = 5;
 const byte LED_B_PIN = 6;
-
-// set IR command storage arrays
 int commands_P1[5];
 int commands_P2[5];
+bool firstSet = true;
 
 
 void setup() {
@@ -40,15 +39,14 @@ void setup() {
   // set IR command storage arrays
   do {
     set(commands_P1, 1);
-    ands_P2, 2);
-  } while (check())
-  }
+    set(commands_P2, 2);
+  } while (!check());
+}
 
 
 void loop() {
   // get input and print corresponding commands to serial port
   if (IrReceiver.decode()) {
-    analogWrite(LED_B_PIN, 255);
     if (IrReceiver.decodedIRData.command == commands_P1[0]) {
       Serial.write("P1UP");
     }
@@ -86,6 +84,8 @@ void loop() {
 void set(int commands[], int p) {
   // returns an array with values from IR remote
 
+  rgbProtocol("set");
+
   if (p == 1) {
     Serial.println("Player One:");
   } else {
@@ -117,12 +117,15 @@ void set(int commands[], int p) {
 
   for (int i = 0; i < 5; i++) {
     Serial.print(commands[i]);
-    Serial.print(commands[i]);
   }
 }
 
 
 bool check() {
+  if (!firstSet) {
+    rgbProtocol("error");
+  }
+  
   for (int i = 0; i < 5; i++) {
     for (int j = 0; j < 5; j++) {
       if (commands_P1[i] == commands_P2[j]) {
@@ -131,4 +134,23 @@ bool check() {
     }
   }
   return true;
+}
+
+
+void rgbProtocol(String protocol) {
+  if (protocol == "set") {
+    for (int i = 0; i < 3; i++) {
+      analogWrite(LED_B_PIN, 255);
+      delay(10);
+      analogWrite(LED_B_PIN, 0);  
+    }
+  }
+  
+  else if (protocol == "error") {
+    for (int i = 0; i < 3; i++) {
+      analogWrite(LED_R_PIN, 255);
+      delay(10);
+      analogWrite(LED_R_PIN, 0);  
+    }
+  }
 }
