@@ -16,6 +16,17 @@
 */
 
 // set pins and variables
+
+/*
+  mapping for inputs:
+           P1    P2
+  -------------------         
+  up    |  11 |  21 |
+  down  |  12 |  22 |
+  left  |  13 |  23 |
+  right |  14 |  24 |
+  center|  15 |  25 |
+*/
 const byte RECEIVER_PIN = 11;
 const byte LED_R_PIN = 3;
 const byte LED_G_PIN = 5;
@@ -23,6 +34,7 @@ const byte LED_B_PIN = 6;
 int commands_P1[5];
 int commands_P2[5];
 bool firstSet = true;
+byte input;
 
 
 void setup() {
@@ -46,37 +58,40 @@ void setup() {
 
 void loop() {
   // get input and print corresponding commands to serial port
+  input = 0;
+    
   if (IrReceiver.decode()) {
     if (IrReceiver.decodedIRData.command == commands_P1[0]) {
-      Serial.write("P1UP");
+      input = 11;
     }
     else if (IrReceiver.decodedIRData.command == commands_P1[1]) {
-      Serial.write("P1DOWN");
+      input = 12;
     }
     else if (IrReceiver.decodedIRData.command == commands_P1[2]) {
-      Serial.write("P1LEFT");
+      input = 13;
     }
     else if (IrReceiver.decodedIRData.command == commands_P1[3]) {
-      Serial.write("P1RIGHT");
+      input = 14;
     }
     else if (IrReceiver.decodedIRData.command == commands_P1[4]) {
-      Serial.write("P1ENTER");
+      input = 15;
     }
     else if (IrReceiver.decodedIRData.command == commands_P2[0]) {
-      Serial.write("P2UP");
+      input = 21;
     }
     else if (IrReceiver.decodedIRData.command == commands_P2[1]) {
-      Serial.write("P2DOWN");
+      input = 22;
     }
     else if (IrReceiver.decodedIRData.command == commands_P2[2]) {
-      Serial.write("P2LEFT");
+      input = 23;
     }
     else if (IrReceiver.decodedIRData.command == commands_P2[3]) {
-      Serial.write("P2RIGHT");
+      input = 24;
     }
     else if (IrReceiver.decodedIRData.command == commands_P2[4]) {
-      Serial.write("P2ENTER");
+      input = 25;
     }
+    Serial.write(input);
   }
 }
 
