@@ -124,6 +124,15 @@ void set(int commands[], int p) {
 bool check() {
   if (!firstSet) {
     rgbProtocol("error");
+    Serial.println("Some input values are not distinct, please check these values and try again: ");
+    for (int i = 0; i < 5; i++) {
+      Serial.println("input ");
+      Serial.print(i + 1);
+      Serial.println("Player One: ");
+      Serial.print(commands_P1[i]);
+      Serial.print(" - Player Two: ");
+      Serial.print(commands_P2[i]);
+    }
   }
   
   for (int i = 0; i < 5; i++) {
