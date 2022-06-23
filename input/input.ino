@@ -7,15 +7,21 @@
   - left: 5V
   - middle: GND
   - right: 11
-  pinning for RGB LED
+  pinning for RGB LED (common cathode)
   facing front(marker mark), left to right:
-  - 1: 3
-  - 2: 5
-  - 3: 6
-  - 4: GND
+  - 1: 3 (R)
+  - 2: 5 (G)
+  - 3: GND
+  - 4: 6 (B)
 */
 
 // set pins and variables
+const byte RECEIVER_PIN = 11;
+const byte LED_R_PIN = 3;
+const byte LED_G_PIN = 5;
+const byte LED_B_PIN = 6;
+int commands_P1[5];
+int commands_P2[5];
 
 /*
   mapping for inputs:
@@ -27,12 +33,7 @@
   right |  14 |  24 |
   center|  15 |  25 |
 */
-const byte RECEIVER_PIN = 11;
-const byte LED_R_PIN = 3;
-const byte LED_G_PIN = 5;
-const byte LED_B_PIN = 6;
-int commands_P1[5];
-int commands_P2[5];
+
 bool firstSet = true;
 byte input;
 
