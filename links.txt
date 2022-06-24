@@ -13,3 +13,6 @@ helpful web pages:
 - https://www.youtube.com/watch?v=5ElKFY3N1zs
 
 - https://create.arduino.cc/projecthub/electropeak/use-an-ir-remote-transmitter-and-receiver-with-arduino-1e6bc8
+
+Fixing the caching issue with the IR receiver:
+https://forum.arduino.cc/t/interrupts-from-ir-receiver/90957/8
