@@ -31,7 +31,7 @@ int commands_P2[5];
   down  |  12 |  22 |
   left  |  13 |  23 |
   right |  14 |  24 |
-  center|  15 |  25 |
+  enter |  15 |  25 |
 */
 
 byte input;
@@ -64,6 +64,7 @@ void loop() {
   input = 0;
     
   if (IrReceiver.decode()) {
+    rgbProtocol("receive");
     if (IrReceiver.decodedIRData.command == commands_P1[0]) {
       input = 11;
     }
@@ -95,7 +96,9 @@ void loop() {
       input = 25;
     }
     if (input != 0) {
-      Serial.println(input);      
+      Serial.write(input);
+      Serial.flush();
+      delay(20);      
     }
     IrReceiver.resume();
   }
@@ -118,7 +121,8 @@ void set(int commands[], int p) {
   int i = 0;
   while (i < 5) {
     if (IrReceiver.decode()) {
-
+      rgbProtocol("receive");
+      
       int command = IrReceiver.decodedIRData.command;
       if (i > 0 && commands[i - 1] == command) {
         i--;
@@ -209,5 +213,13 @@ void rgbProtocol(String protocol) {
       analogWrite(LED_G_PIN, 0);  
       delay(500);
     }
+  }
+
+  else if (protocol == "receive") {
+    analogWrite(LED_B_PIN, 255);
+    analogWrite(LED_R_PIN, 255);
+    delay(100);
+    analogWrite(LED_B_PIN, 0);
+    analogWrite(LED_R_PIN, 0);
   }
 }
